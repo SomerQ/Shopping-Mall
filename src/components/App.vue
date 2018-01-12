@@ -1,16 +1,13 @@
 <template>
     <div>
-
-        <header></header>
-        <app-login></app-login>
-        <app-register></app-register>
-        <footer></footer>
-
+hello world
     </div>
 </template>
 
 <script>
-export default {};
+    export default {
+        
+    }
 </script>
 
 <style scoped>
