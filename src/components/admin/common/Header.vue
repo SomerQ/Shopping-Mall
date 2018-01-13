@@ -1,6 +1,6 @@
 <template>
     <div>
-<router-view></router-view>
+头部
     </div>
 </template>
 
@@ -11,8 +11,5 @@
 </script>
 
 <style scoped>
-div{
-    height: 100%;
-    background-color: #267cb7
-}
+
 </style>
