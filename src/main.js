@@ -1,6 +1,9 @@
 import Vue from 'vue';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
+Vue.use(ElementUI);
 import App from './components/App.vue';
 import routerConfig from './router/index.js';
 import axios from 'axios';
