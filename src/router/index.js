@@ -11,10 +11,10 @@ import GoodsContentList from '../components/admin/common/goods/goodsContent/good
 
 let adminChildren=[
     {name:'goodsCateAdd',path:'goods/goodsCateAdd',component:GoodsCateEdit},
-    {name:'goodsCateEdit',path:'goods/goodsCateEdit/:cate-id',component:GoodsCateEdit},
+    {name:'goodsCateEdit',path:'goods/goodsCateEdit/:cateId',component:GoodsCateEdit},
     {name:'goodsCateList',path:'goods/goodsCateList',component:GoodsCateList},
     {name:'goodsContentAdd',path:'goods/goodsContentAdd',component:GoodsContentEdit},
-    {name:'goodsContentEdit',path:'goods/goodsContentEdit/:content-id',component:GoodsContentEdit},
+    {name:'goodsContentEdit',path:'goods/goodsContentEdit/:contentId',component:GoodsContentEdit},
     {name:'goodsContentList',path:'goods/goodsContentList',component:GoodsContentList},
    
 ]
@@ -22,6 +22,7 @@ let adminChildren=[
 export default {
     routes: [
         {name:"login",path:'/login',component:Login},
+        {path:'/',redirect: "admin"},
         {name:"admin",path:'/admin',component:Admin,children:adminChildren},
     ]
 }

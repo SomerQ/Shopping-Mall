@@ -45,11 +45,14 @@ export default {
 
 .el-aside {
   height: 100%;
+  background-color: #fff;
 }
 
 .el-main {
   padding: 0;
   height: 100%;
+  background-color: #fff;
+  padding: 10px;
 }
 .admin {
   height: 100%;
