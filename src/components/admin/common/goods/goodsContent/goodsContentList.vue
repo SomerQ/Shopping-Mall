@@ -58,6 +58,10 @@
                 <el-button @click="toggleSelection()">取消选择</el-button>
             </div>
         </div>
+        <div class="pagination">
+            <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="dataObj.pageIndex" :page-sizes="pageSizes" :page-size="dataObj.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalPages">
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -71,7 +75,9 @@ export default {
         pageIndex: 1,
         pageSize: 10,
         searchvalue: ""
-      }
+      },
+      pageSizes: [10, 20, 40, 50],
+      totalPages: ""
     };
   },
 
@@ -81,6 +87,7 @@ export default {
         .get(this.$api.gsList, { params: this.dataObj })
         .then(res => {
           this.productData = res.data.message;
+          this.totalPages = res.data.totalcount;
         })
         .catch(res => alert(res.data.message));
     },
@@ -95,6 +102,14 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    sizeChange(val) {
+      this.dataObj.pageSize=val;
+      this.getProductData();
+    },
+    currentChange(val) {
+      this.dataObj.pageIndex=val;
+      this.getProductData();
     }
   },
   created() {
@@ -122,5 +137,10 @@ export default {
     width: 180px;
     float: right;
   }
+}
+.pagination{
+    height: 50px;
+    padding-top:20px;
+    padding-left: 20px;
 }
 </style>
