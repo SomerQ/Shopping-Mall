@@ -1,49 +1,57 @@
 <template>
-    <div>
-        <el-container class="admin">
-            <el-aside width="200px">
-                <Aside></Aside>
-            </el-aside>
-            <el-container>
-                <el-header>
-                    <Header></Header>  
-                </el-header>
-                <el-main>
-                    <router-view></router-view>
-                </el-main>
-            </el-container>
-        </el-container>
-    </div>
+  <div>
+    <el-container class="admin">
+          <el-aside :width="width"><Aside :showMenu="menuVal"></Aside></el-aside>
+      <el-container>
+        <el-header>
+            <Header @emitVal="getVal"></Header>
+        </el-header>
+        <el-main>
+            <router-view></router-view>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
 
 </template>
 
 <script>
-import Aside from "./common/Aside.vue";
 import Header from "./common/Header.vue";
+import Aside from "./common/Aside.vue";
+
 export default {
   components: {
-    Aside,
-    Header
+    Header,
+    Aside
+  },
+  data() {
+    return {
+      width: "",
+      menuVal: ""
+    };
+  },
+  methods: {
+    getVal(val) {
+      this.menuVal = val;
+    }
   }
 };
 </script>
 
 <style lang='less' scoped>
-.el-header{
-    background-color: #B3C0D1;
-    color: #333;
-  }
-  
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-  }
-  
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-  }
-  .admin{
-      height: 100%;
-  }
+.el-header {
+  padding: 0;
+}
+
+.el-aside {
+  height: 100%;
+}
+
+.el-main {
+  padding: 0;
+  height: 100%;
+}
+.admin {
+  height: 100%;
+}
 </style>

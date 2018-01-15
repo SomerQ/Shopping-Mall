@@ -12,7 +12,10 @@ import App from './components/App.vue';
 import routerConfig from './router/index.js';
 import axios from 'axios';
 import { domain } from './js/api_config.js';
-axios.defaults.baseURL=domain;
+//请求在线api，使用以下代码
+// axios.defaults.baseURL=domain;
+//如果请求本地api,则使用以下代码
+axios.defaults.baseURL='http://localhost:8899';
 Vue.prototype.$http=axios;
 import api from './js/api_config.js';
 Vue.prototype.$api=api;
