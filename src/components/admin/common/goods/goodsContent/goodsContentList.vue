@@ -10,14 +10,14 @@
         <div class="btnGroup">
             <el-button-group>
                 <el-button plain icon="el-icon-plus" size="mini">新增</el-button>
-                <el-button plain icon="el-icon-check" size="mini">全选</el-button>
-                <el-button plain icon="el-icon-delete" size="mini">删除</el-button>
+                <el-button plain icon="el-icon-check" size="mini" @click="selectAll">全选</el-button>
+                <el-button plain icon="el-icon-delete" size="mini" @click="deleteGoods">删除</el-button>
             </el-button-group>
             <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="dataObj.searchvalue" class="searchInput" @blur="getProductData">
             </el-input>
         </div>
         <div class="dataTable">
-            <el-table ref="multipleTable" :data="productData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
+            <el-table ref="multipleTable" :data="productData" tooltip-effect="dark" style="width: 100%" @selection-change="selectionChange">
                 <el-table-column type="selection" width="55">
                 </el-table-column>
                 <el-table-column label="标题" width="">
@@ -77,11 +77,14 @@ export default {
         searchvalue: ""
       },
       pageSizes: [10, 20, 40, 50],
-      totalPages: ""
+      totalPages:0
     };
   },
 
   methods: {
+      selectAll(){
+          document.querySelector('.el-checkbox__inner').click();
+      },
     getProductData() {
       this.$http
         .get(this.$api.gsList, { params: this.dataObj })
@@ -100,15 +103,51 @@ export default {
         this.$refs.multipleTable.clearSelection();
       }
     },
-    handleSelectionChange(val) {
+    selectionChange(val) {
       this.multipleSelection = val;
     },
+    deleteGoods() {
+      this.$confirm("此操作将永久删除该商品, 是否继续?", "温馨提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.deleteMethod();
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
+    deleteMethod() {
+      var idArr = this.multipleSelection.map(v => v.id);
+      var dataStr = idArr.join(",");
+      console.log(dataStr);
+      this.$http
+        .get(this.$api.gsDel + dataStr)
+        .then(res => {
+          if (res.data.status == 0) {
+            this.getProductData();
+            this.multipleSelection=[];
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+          } else {
+            this.alert(res.data.message);
+          }
+        })
+        .catch(res => console.log(error));
+    },
     sizeChange(val) {
-      this.dataObj.pageSize=val;
+      this.dataObj.pageSize = val;
       this.getProductData();
     },
     currentChange(val) {
-      this.dataObj.pageIndex=val;
+      this.dataObj.pageIndex = val;
       this.getProductData();
     }
   },
@@ -138,9 +177,9 @@ export default {
     float: right;
   }
 }
-.pagination{
-    height: 50px;
-    padding-top:20px;
-    padding-left: 20px;
+.pagination {
+  height: 50px;
+  padding-top: 20px;
+  padding-left: 20px;
 }
 </style>
