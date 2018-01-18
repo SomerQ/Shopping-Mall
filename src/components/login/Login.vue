@@ -64,10 +64,10 @@ export default {
             // console.log(nextPath?nextPath:'/admin');
             this.$router.push(nextPath?nextPath:'/admin');
           } else {
-            alert(res.data.message);
+            this.$alert(res.data.message);
           }
         })
-        .catch(res => console.log(alert("error")));
+        .catch(res => console.log("error"));
     }
   }
 };

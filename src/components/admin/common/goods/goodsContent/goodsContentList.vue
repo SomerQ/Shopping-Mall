@@ -92,7 +92,7 @@ export default {
           this.productData = res.data.message;
           this.totalPages = res.data.totalcount;
         })
-        .catch(res => alert(res.data.message));
+        .catch(res => this.$alert(res.data.message));
     },
     toggleSelection(rows) {
       if (rows) {
@@ -137,7 +137,7 @@ export default {
               message: "删除成功!"
             });
           } else {
-            this.alert(res.data.message);
+            this.$alert(res.data.message);
           }
         })
         .catch(res => console.log(error));
